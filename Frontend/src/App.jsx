@@ -1,14 +1,23 @@
-import { useState } from 'react'
-import Student_dashboard from './components/Student_dashboard'
-import './App.css'
-import Signup from './components/Signup';
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import LoginRegisterPage from "./components/LoginRegisterPage";
+import Signup from "./components/Signup";
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <Student_dashboard />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginWrapper />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-export default App
+// Wrapper so we can pass navigation to LoginRegisterPage
+function LoginWrapper() {
+  const navigate = useNavigate();
+  return <LoginRegisterPage onNavigateToSignup={() => navigate("/signup")} />;
+}
+
+export default App;
