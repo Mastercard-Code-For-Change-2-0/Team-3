@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { User, Lock, UserPlus, GraduationCap, Shield, Settings } from 'lucide-react';
 
-const Auth = () => {
+const Authentication = () => {
   const [activeTab, setActiveTab] = useState('login');
   const [userType, setUserType] = useState('student');
   const [formData, setFormData] = useState({
@@ -255,4 +255,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default Authentication;
