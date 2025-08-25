@@ -1,36 +1,38 @@
 import React, { useState } from "react";
-import Sidebar from "../Navbar";
-import { Home, BarChart3, Settings } from "lucide-react";
-
-const adminNav = [
-    { name: "Dashboard", href: "/admin", icon: Home },
-    { name: "Verified Users", href: "/admin/verified-users", icon: BarChart3 },
-    { name: "Student Credentials", href: "/admin/student-cred", icon: BarChart3 },
-    { name: "Clerk Credentials", href: "/admin/clerk-cred", icon: BarChart3 },
-    { name: "Settings", href: "/admin/settings", icon: Settings },
-    { name: "Logout", href: "/logout", icon: Settings }, // Replace icon if needed
-];
 
 export default function Admin() {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [admins] = useState([
+        { id: 1, name: "Admin One", email: "admin1@example.com" },
+        { id: 2, name: "Admin Two", email: "admin2@example.com" },
+        { id: 3, name: "Admin Three", email: "admin3@example.com" }
+    ]);
 
     return (
-        <div className="flex min-h-screen">
-            <Sidebar
-                isOpen={sidebarOpen}
-                onClose={() => setSidebarOpen(false)}
-                nav={adminNav}
-            />
-            <main className="flex-1 p-8">
-                <button
-                    className="lg:hidden mb-4 px-4 py-2 bg-blue-600 text-white rounded"
-                    onClick={() => setSidebarOpen(true)}
-                >
-                    Open Menu
-                </button>
-                <h1>Admin Dashboard</h1>
-                {/* Add dashboard widgets or summary here */}
-            </main>
+        <div className="p-8">
+            <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
+            <div className="bg-white rounded-lg shadow p-6">
+                <h2 className="text-xl font-semibold mb-4">Admins</h2>
+                <div className="text-xs uppercase tracking-wide text-gray-500 mb-2 px-2 grid grid-cols-2 gap-4">
+                    <span>Name</span>
+                    <span>Email</span>
+                </div>
+                <ul className="divide-y divide-gray-200">
+                    {admins.map(admin => (
+                        <li key={admin.id} className="grid grid-cols-2 items-center gap-4 py-3 px-2">
+                            <span className="font-medium text-gray-900 truncate">{admin.name}</span>
+                            <span className="text-gray-700 truncate">{admin.email}</span>
+                        </li>
+                    ))}
+                </ul>
+                <div className="pt-6">
+                    <a
+                        href="/admin/create"
+                        className="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded"
+                    >
+                        Create New Admin
+                    </a>
+                </div>
+            </div>
         </div>
     );
 }
