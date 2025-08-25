@@ -1,8 +1,9 @@
 // components/LoginRegisterPage.jsx
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { User, Lock, UserPlus, GraduationCap, Shield, Settings } from "lucide-react";
 
-const LoginRegisterPage = ({ onNavigateToSignup }) => {
+const LoginRegisterPage = ({ onNavigateToSignup, onNavigateToUserManagement }) => {
   const [activeTab, setActiveTab] = useState("login");
   const [userType, setUserType] = useState("student");
   const [formData, setFormData] = useState({
@@ -55,19 +56,25 @@ const handleSubmit = () => {
 
       {/* User type selection */}
       <div className="flex space-x-4 mb-6">
-        {[
-          { type: "student", icon: GraduationCap },
-          { type: "admin", icon: Shield },
-          { type: "owner", icon: Settings }
-        ].map(({ type, icon: Icon }) => (
-          <button
-            key={type}
-            className={`p-3 rounded-xl border ${userType === type ? "bg-blue-100 border-blue-500" : "bg-white border-gray-300"}`}
-            onClick={() => setUserType(type)}
-          >
-            <Icon className="w-6 h-6" />
-          </button>
-        ))}
+{[
+  { type: "student", icon: GraduationCap },
+  { type: "admin", icon: Shield },
+  { type: "owner", icon: Settings }
+].map(({ type, icon: Icon }) => (
+  <button
+    key={type}
+    className={`p-3 rounded-xl border ${userType === type ? "bg-blue-100 border-blue-500" : "bg-white border-gray-300"}`}
+    onClick={() => {
+      setUserType(type);
+      if (type === "owner" && onNavigateToUserManagement) {
+        onNavigateToUserManagement(); // 👈 navigates to /user-management
+      }
+    }}
+  >
+    <Icon className="w-6 h-6" />
+  </button>
+))}
+
       </div>
 
       {/* Form */}
