@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Eye, Check, X, User, Mail, Calendar, Shield } from 'lucide-react';
 
-const UserManagement = () => {
-  // Sample user data
+export default function Clerk() {
   const [users, setUsers] = useState([
     {
       id: 1,
@@ -55,21 +54,19 @@ const UserManagement = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  // Filter users based on status
   const filteredUsers = users.filter(user => {
     if (filter === 'all') return true;
     return user.status === filter;
   });
 
-  // Handle user actions
   const handleVerify = (userId) => {
-    setUsers(prev => prev.map(user => 
+    setUsers(prev => prev.map(user =>
       user.id === userId ? { ...user, status: 'verified' } : user
     ));
   };
 
   const handleReject = (userId) => {
-    setUsers(prev => prev.map(user => 
+    setUsers(prev => prev.map(user =>
       user.id === userId ? { ...user, status: 'rejected' } : user
     ));
   };
@@ -85,10 +82,10 @@ const UserManagement = () => {
       unverified: { color: 'bg-yellow-100 text-yellow-800', icon: Shield },
       rejected: { color: 'bg-red-100 text-red-800', icon: X }
     };
-    
+
     const config = statusConfig[status];
     const Icon = config.icon;
-    
+
     return (
       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${config.color}`}>
         <Icon className="w-3 h-3 mr-1" />
@@ -100,13 +97,11 @@ const UserManagement = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">User Management</h1>
           <p className="text-gray-600">Manage and verify registered users</p>
         </div>
 
-        {/* Filter Section */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
           <div className="flex items-center space-x-4">
             <label className="text-sm font-medium text-gray-700">Filter by status:</label>
@@ -128,14 +123,13 @@ const UserManagement = () => {
           </div>
         </div>
 
-        {/* Users List */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200">
           <div className="px-6 py-4 border-b border-gray-200">
             <h2 className="text-lg font-semibold text-gray-900">
               Registered Users ({filteredUsers.length})
             </h2>
           </div>
-          
+
           <div className="divide-y divide-gray-200">
             {filteredUsers.map((user) => (
               <div key={user.id} className="p-6 hover:bg-gray-50 transition-colors">
@@ -163,7 +157,7 @@ const UserManagement = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={() => handleViewDetails(user)}
@@ -172,7 +166,7 @@ const UserManagement = () => {
                       <Eye className="w-4 h-4 mr-1" />
                       View Details
                     </button>
-                    
+
                     {user.status === 'unverified' && (
                       <>
                         <button
@@ -182,7 +176,7 @@ const UserManagement = () => {
                           <Check className="w-4 h-4 mr-1" />
                           Verify
                         </button>
-                        
+
                         <button
                           onClick={() => handleReject(user.id)}
                           className="inline-flex items-center px-3 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-700 transition-colors"
@@ -197,7 +191,7 @@ const UserManagement = () => {
               </div>
             ))}
           </div>
-          
+
           {filteredUsers.length === 0 && (
             <div className="text-center py-12">
               <User className="w-12 h-12 text-gray-400 mx-auto mb-4" />
@@ -207,7 +201,6 @@ const UserManagement = () => {
         </div>
       </div>
 
-      {/* Modal for User Details */}
       {showModal && selectedUser && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg max-w-md w-full p-6">
@@ -220,7 +213,7 @@ const UserManagement = () => {
                 <X className="w-5 h-5" />
               </button>
             </div>
-            
+
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
                 <img
@@ -233,18 +226,18 @@ const UserManagement = () => {
                   {getStatusBadge(selectedUser.status)}
                 </div>
               </div>
-              
+
               <div className="space-y-3">
                 <div>
                   <label className="text-sm font-medium text-gray-500">Email</label>
                   <p className="text-gray-900">{selectedUser.email}</p>
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium text-gray-500">Phone</label>
                   <p className="text-gray-900">{selectedUser.phone}</p>
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium text-gray-500">Registration Date</label>
                   <p className="text-gray-900">
@@ -257,7 +250,7 @@ const UserManagement = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="mt-6 flex space-x-2">
               {selectedUser.status === 'unverified' && (
                 <>
@@ -271,7 +264,7 @@ const UserManagement = () => {
                     <Check className="w-4 h-4 mr-1" />
                     Verify
                   </button>
-                  
+
                   <button
                     onClick={() => {
                       handleReject(selectedUser.id);
@@ -290,6 +283,6 @@ const UserManagement = () => {
       )}
     </div>
   );
-};
+}
 
-export default UserManagement;
+
