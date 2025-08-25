@@ -1,5 +1,6 @@
 // components/LoginRegisterPage.jsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { User, Lock, UserPlus, GraduationCap, Shield, Settings } from "lucide-react";
 
 const LoginRegisterPage = ({ onNavigateToSignup }) => {
@@ -10,6 +11,12 @@ const LoginRegisterPage = ({ onNavigateToSignup }) => {
     username: "",
     password: ""
   });
+
+  const navigate = useNavigate();
+
+  const validateForm = () => {
+    return Boolean(formData.username && formData.password);
+  };
 
   // Handle input change
   const handleChange = (e) => {
@@ -31,6 +38,16 @@ const handleSubmit = () => {
     console.log(`${userType} login:`, { username: formData.username, password: formData.password });
     alert(`Welcome ${userType}! Login successful.`);
     setFormData({ name: "", username: "", password: "" });
+
+    // Temporary: navigate to section routes for testing
+    if (userType === "admin") {
+      navigate("/admin");
+    } else if (userType === "student") {
+      navigate("/student");
+    } else {
+      // treat other types as clerk for testing
+      navigate("/clerk");
+    }
   }
 };
 
@@ -50,6 +67,28 @@ const handleSubmit = () => {
           onClick={() => setActiveTab("register")}
         >
           Register
+        </button>
+      </div>
+
+      {/* Temporary test navigation (bypass auth) */}
+      <div className="flex mb-6 gap-3">
+        <button
+          className="px-3 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+          onClick={() => navigate("/admin")}
+        >
+          Go to Admin
+        </button>
+        <button
+          className="px-3 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+          onClick={() => navigate("/clerk")}
+        >
+          Go to Clerk
+        </button>
+        <button
+          className="px-3 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+          onClick={() => navigate("/student")}
+        >
+          Go to Student
         </button>
       </div>
 

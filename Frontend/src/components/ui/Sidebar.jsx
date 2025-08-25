@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { BarChart3, Home, Settings, Book, X } from 'lucide-react';
-import { BigButton } from './ui/BigButton';
+import { BigButton } from './BigButton';
 
 
 
