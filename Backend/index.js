@@ -1,12 +1,24 @@
+<<<<<<< HEAD
 const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const cors = require('cors');
+=======
+const express = require("express");
+const dotenv = require("dotenv");
+const connectDB = require("./config/db");
+const cors = require("cors");
+>>>>>>> 4a32488 (frontend is running)
 
 // Load env vars
 dotenv.config();
 
 const app = express();
+<<<<<<< HEAD
+=======
+app.use(express.json());
+app.use(cors());
+>>>>>>> 4a32488 (frontend is running)
 
 // Middleware
 app.use(cors());
